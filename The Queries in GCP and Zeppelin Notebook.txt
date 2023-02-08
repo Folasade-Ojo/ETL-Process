@@ -1,0 +1,71 @@
+
+--loading the dataset in HDFS
+
+wget https://www.dropbox.com/s/ia779cdcjfctd84/stocks
+head stocks
+hadoop fs -mkdir /bigdata/.
+hadoop fs -copyFromLocal stocks /bigdata/.
+
+-- in Zeppelin Notebook
+
+import org.apache.spark.sql.types.{IntegerType,StringType,FloatType,StructType,StructField}
+import org.apache.spark.sql.functions.{expr, col, column, min, max, desc, avg}
+
+val schema = StructType(Array(
+	StructField("exch", StringType, true),
+	StructField("symbol", StringType, true),
+	StructField("ymd", StringType, true),
+	StructField("price_open", FloatType, true),
+	StructField("price_high", FloatType, true),
+	StructField("price_low", FloatType, true),
+	StructField("price_close", FloatType, true),
+	StructField("volume", IntegerType, true),
+	StructField("price_adj_close", FloatType, true)
+))
+
+
+val stocks = spark.read.format("csv")
+.option("header","true")
+.schema(schema)
+.load("hdfs://your_ip_address/the_hadoop_directory_you_created/stocks")
+
+
+-- Stocks with an average daily volume greater than 1 million shares
+
+val avg_vol =  stocks.groupBy($"symbol").agg(avg($"volume").alias("average_volume"))
+val avg_vol_filtered = avg_vol.where($"average_volume">1000000)
+.orderBy(($"average_volume").desc)
+avg_vol_adjusted.show()
+
+
+-- Top 3 stocks by volume for the year 2004
+
+val top_3_stocks_by_vol = stocks.select($"symbol", $"volume", to_date($"ymd").alias("date"))
+.filter(year($"ymd" )==="2004")
+.groupBy($"symbol", $"date")
+.agg(sum($"volume").alias("total_volume"))
+.orderBy(($"total_volume").desc)
+top_3_stocks_by_vol.show(3)
+
+
+-- Top 3 stocks by volume whose symbol starts with “G”
+
+val stocks_cols = stocks.select($"symbol", $"volume").filter($"symbol".like("G%"))
+val top_3_vol_with_g = stocks_cols.groupBy($"symbol").agg(sum($"volume").alias("total_volume"))
+.orderBy(($"total_volume").desc)
+top_3_vol_with_g.show(3)
+
+
+-- Symbols whose closing price are larger than my age 
+
+val closing_by_symbol = stocks.select($"symbol").filter($"price_close" > my_age)
+closing_by_symbol.show()
+
+
+-- Top 10 stocks with the largest intraday price change
+
+val stocks_price = stocks.select($"exch",$"symbol", $"price_high",$"price_low")
+val intraday = stocks_price.withColumn("price_change", ($"price_high") -($"price_low"))
+val intraday_adjusted = intraday.orderBy(($"price_change").desc)
+intraday_adjusted.show(10)
+
