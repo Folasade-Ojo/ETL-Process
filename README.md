@@ -1,4 +1,3 @@
-# Spark-Structured-API
 ## About the Dataset
 This is a large stocks dataset of about 400MB which will be loaded onto HDFS and transformed into a Scala DataFrame using Spark.
 
