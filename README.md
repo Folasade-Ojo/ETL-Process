@@ -22,15 +22,11 @@ Commands were written to answer below questions about the dataset.
 
 ![image](https://user-images.githubusercontent.com/121362860/226059794-fc8892ce-bb54-4618-889a-6f2ba5a69d2c.png)
 
-* Top 3 stocks by volume whose symbol starts with “F”- the first letter of my name
-
-![image](https://user-images.githubusercontent.com/121362860/226059736-37e8600e-e7bf-490f-9c90-fada635db359.png)
-
 + Top 3 stocks by volume whose symbol starts with “G”
 
 ![image](https://user-images.githubusercontent.com/121362860/226059700-63ceffa2-cb95-4ef2-8984-94f344665364.png)
 
-* Symbols whose closing price are larger than my age (27)
+* Symbols whose closing price are larger than my age
 
 ![image](https://user-images.githubusercontent.com/121362860/226059670-9c9e0ec3-7e92-41ca-962c-d1fb5511c105.png)
 
