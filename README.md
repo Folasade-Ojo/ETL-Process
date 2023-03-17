@@ -13,6 +13,7 @@ Instead of running the **Spark engine** in the GCP VM engine, it was intiated in
 
 ![image](https://user-images.githubusercontent.com/121362860/226058607-4b6b0988-f3a3-48f6-a97b-0b42452ca328.png)
 
+### Business Questions
 *Commands were written to answer below questions about the dataset.*
 
 ***Stocks with an average daily volume greater than 1 million shares.***
