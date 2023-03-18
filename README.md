@@ -1,5 +1,5 @@
 ## About the Dataset
-This is a large stocks dataset of about 400MB which contained will be loaded onto **HDFS** and transformed into a Scala DataFrame using Spark. 
+This is a large stocks dataset of about 400MB which will be loaded onto **HDFS** and transformed into a Scala DataFrame using Spark. 
 
 ## Tools
 Instead of running the **Spark engine** in the GCP VM engine, it was intiated in **Zeppelin Notebook** due to its user-friendly interface and ability to handle error with ease. 
